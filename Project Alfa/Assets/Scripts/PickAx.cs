@@ -5,13 +5,13 @@ using UnityEngine.Rendering;
 
 public class PickAx : MonoBehaviour
 {
-    private Rigidbody pickAx;
-    private bool isPickAxInHand;
+    private Rigidbody _pickAx;
+    private bool _isPickAxInHand;
     void Start()
     {
-        pickAx = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
-        Debug.Log(pickAx.gameObject);
-        isPickAxInHand = true;
+        _pickAx = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
+        Debug.Log(_pickAx.gameObject);
+        _isPickAxInHand = true;
     }
 
     void Update()
@@ -20,7 +20,7 @@ public class PickAx : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            if (isPickAxInHand)
+            if (_isPickAxInHand)
             {
                 isAiming = true;
                 Debug.Log("Aim");
@@ -29,7 +29,7 @@ public class PickAx : MonoBehaviour
             {
                 PickAxComeBack();
             }
-            Debug.Log(isPickAxInHand);
+            Debug.Log(_isPickAxInHand);
         }
         else
         {
@@ -37,7 +37,7 @@ public class PickAx : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            if (isPickAxInHand)
+            if (_isPickAxInHand)
             {
                 if (!isAiming)
                 {
@@ -52,7 +52,7 @@ public class PickAx : MonoBehaviour
             {
                 PickAxEffect();
             }
-            Debug.Log(isPickAxInHand);
+            Debug.Log(_isPickAxInHand);
         }
     }
 
@@ -65,12 +65,12 @@ public class PickAx : MonoBehaviour
     private void PickAxThrow()
     {
         Debug.Log("Throw");
-        isPickAxInHand = false;
+        _isPickAxInHand = false;
     }
 
     private void PickAxComeBack()
     {
-        isPickAxInHand = true;
+        _isPickAxInHand = true;
     }
 
     private void PickAxEffect()
