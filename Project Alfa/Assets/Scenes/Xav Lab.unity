@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 131.1594, g: 162.49646, b: 215.04776, a: 1}
+  m_IndirectSpecularColor: {r: 131.16855, g: 162.52502, b: 215.10977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Profile: {fileID: 11400000, guid: a123fc0ac58cb774e8592c925f167e7c, type: 2}
   m_StaticLightingSkyUniqueID: 1
-  m_SkySettings: {fileID: 681247862}
+  m_SkySettings: {fileID: 780593372}
   m_SkySettingsFromProfile: {fileID: -1658960478407648048, guid: a123fc0ac58cb774e8592c925f167e7c,
     type: 2}
 --- !u!4 &313761475
@@ -958,7 +958,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &681247862
+--- !u!114 &780593372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1388,7 +1388,7 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 2
+  m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 1
   m_SensorSize: {x: 55, y: 24}
@@ -1402,7 +1402,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 50.046806
+  field of view: 42.999634
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1433,6 +1433,7 @@ Transform:
   m_Children:
   - {fileID: 500462441}
   - {fileID: 1629761130}
+  - {fileID: 1315808950}
   - {fileID: 1524402102}
   m_Father: {fileID: 2118960862}
   m_RootOrder: 0
@@ -1450,11 +1451,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
-  clampVertMin: -90
-  clampVertMax: 70
+  clampVertMin: -70
+  clampVertMax: 90
   playerBody: {fileID: 2118960862}
   mouseCursorTexture: {fileID: 0}
   cursorMode: 0
+--- !u!1 &1315808949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1315808950}
+  m_Layer: 0
+  m_Name: PickAx Reset Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1315808950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315808949}
+  m_LocalRotation: {x: 0.07391525, y: -0, z: -0, w: 0.99726456}
+  m_LocalPosition: {x: 0.35699987, y: -0.065999806, z: 0.77699995}
+  m_LocalScale: {x: 0.05, y: 0.41763005, z: 0.05000001}
+  m_Children: []
+  m_Father: {fileID: 1297650284}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494370218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1560,9 +1591,10 @@ GameObject:
   - component: {fileID: 1524402105}
   - component: {fileID: 1524402104}
   - component: {fileID: 1524402103}
+  - component: {fileID: 1524402106}
   m_Layer: 0
   m_Name: PickAx
-  m_TagString: Untagged
+  m_TagString: PickAx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1574,14 +1606,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524402101}
-  m_LocalRotation: {x: 0.07391525, y: -0, z: -0, w: 0.99726456}
-  m_LocalPosition: {x: 0.35699987, y: -0.065999806, z: 0.77699995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.35699987, y: -0.065999806, z: 0.852}
   m_LocalScale: {x: 0.05, y: 0.41763002, z: 0.050000004}
   m_Children:
   - {fileID: 1800663539}
   m_Father: {fileID: 1297650284}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 8.478001, y: 0, z: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1524402103
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1643,6 +1675,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524402101}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1524402106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524402101}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1547029145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2102,13 +2150,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800663538}
-  m_LocalRotation: {x: 0.70429754, y: -0.062968925, z: 0.06296891, w: 0.70429754}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: -0.01, y: 0.94, z: -0.16}
   m_LocalScale: {x: 0.8546581, y: 5.4158874, z: 0.031540062}
   m_Children: []
   m_Father: {fileID: 1524402102}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 10.218}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!136 &1800663540
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2509,6 +2557,7 @@ GameObject:
   - component: {fileID: 2118960860}
   - component: {fileID: 2118960859}
   - component: {fileID: 2118960863}
+  - component: {fileID: 2118960864}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2524,7 +2573,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118960858}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 70
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2599,7 +2648,7 @@ MonoBehaviour:
   sprintSpeed: 16
   groundDistance: 0.3
   initialFOV: 70
-  sprintingFOV: 60
+  sprintingFOV: 80
   fovSpeed: 15
   fovCoefficientToOriginal: 4
   groundMask:
@@ -2607,3 +2656,17 @@ MonoBehaviour:
     m_Bits: 512
   audioClip: []
   audioSource: {fileID: 0}
+--- !u!114 &2118960864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118960858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42439b163ee0f1428336917df0d6332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwPower: 20
+  axeRotationSpeed: 10000
