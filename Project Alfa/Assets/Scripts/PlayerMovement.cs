@@ -5,14 +5,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform groundCheck = null;
+    [Tooltip ("Lower value = quicker fall, keep it < 0")]
     [SerializeField] private float gravity;
-    [SerializeField] private float jumpHeight = 3.0f;
-    [SerializeField] private float walkingSpeed = 6.0f;
-    [SerializeField] private float sprintSpeed = 12.0f;
-    [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private float initialFOV = 60.0f;
-    [SerializeField] private float sprintingFOV = 30.0f;
-    [SerializeField] [Range(10.0f, 20.0f)] private float fovSpeed = 10.0f;
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private float walkingSpeed;
+    [SerializeField] private float sprintSpeed;
+    [Tooltip ("Change this for the 'anti fall damage boot' thing : 0.3 = no thing, the higher the value the longer the thing is")]
+    [SerializeField] private float groundDistance;
+    [SerializeField] private float initialFOV;
+    [SerializeField] private float sprintingFOV;
+    [Tooltip ("Lower value = quicker lerp")]
+    [SerializeField] [Range(10.0f, 20.0f)] private float fovSpeed;
     [SerializeField] private float fovCoefficientToOriginal;
 
 
