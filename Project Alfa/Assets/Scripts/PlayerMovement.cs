@@ -92,9 +92,13 @@ public class PlayerMovement : MonoBehaviour
         if (_isSprinting)
         {
             if (_camera.fieldOfView < sprintingFOV)
+            {
                 _camera.fieldOfView = sprintingFOV;
+            }
             else if (_camera.fieldOfView > sprintingFOV)
+            {
                 _camera.fieldOfView -= _fovValue;
+            }
         }
         else
         {

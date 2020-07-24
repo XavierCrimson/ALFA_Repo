@@ -5,12 +5,14 @@ using UnityEngine.Rendering;
 
 public class PickAx : MonoBehaviour
 {
-    private Rigidbody _pickAx;
+    [SerializeField] private float throwPower;
+    [SerializeField] private float axeRotationSpeed;
+    private Rigidbody _pickAxRb;
     private bool _isPickAxInHand;
     void Start()
     {
-        _pickAx = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
-        Debug.Log(_pickAx.gameObject);
+        _pickAxRb = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
+        Debug.Log(_pickAxRb.gameObject);
         _isPickAxInHand = true;
     }
 
@@ -66,6 +68,11 @@ public class PickAx : MonoBehaviour
     {
         Debug.Log("Throw");
         _isPickAxInHand = false;
+        _pickAxRb.transform.parent = null;
+        _pickAxRb.isKinematic = false;
+        _pickAxRb.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+        _pickAxRb.AddForce(Camera.main.transform.TransformDirection(Vector3.forward) * throwPower, ForceMode.Impulse);
+        _pickAxRb.AddRelativeTorque(Vector3.right * axeRotationSpeed, ForceMode.Impulse);
     }
 
     private void PickAxComeBack()
