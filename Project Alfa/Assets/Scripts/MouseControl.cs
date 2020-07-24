@@ -5,6 +5,8 @@ using UnityEngine;
 public class MouseControl : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 100.0f;
+    [SerializeField] [Range(-90, 0)] private int clampVertMin;
+    [SerializeField] [Range (0, 90)] private int clampVertMax;
     [SerializeField] private Transform playerBody = null;
     [SerializeField] private Texture2D mouseCursorTexture = null;
     [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
@@ -26,7 +28,7 @@ public class MouseControl : MonoBehaviour
 
         xRotation -= mouseY;
 
-        xRotation = Mathf.Clamp(xRotation, -90.0f, 90.0f);
+        xRotation = Mathf.Clamp(xRotation, clampVertMin, clampVertMax);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0.0f, 0.0f);
         playerBody.Rotate(Vector3.up * mouseX);
