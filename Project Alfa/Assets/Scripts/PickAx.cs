@@ -5,15 +5,25 @@ using UnityEngine.Rendering;
 
 public class PickAx : MonoBehaviour
 {
+    [Header ("Pick Ax Throw")]
     [SerializeField] private float throwPower;
     [SerializeField] private float axeRotationSpeed;
     private Rigidbody _pickAxRb;
     private bool _isPickAxInHand;
+
+    [Header("Pick Ax Return")]
+    [Tooltip ("Set the distance at which the PickAx is considered back in the hand")]
+    [SerializeField] private float grabStep = 0.05f;
+    [Tooltip ("lower value = slower lerp")]
+    [SerializeField] private float lerpSpeed;
+    private Transform _resetTransform;
     void Start()
     {
         _pickAxRb = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
         Debug.Log(_pickAxRb.gameObject);
         _isPickAxInHand = true;
+
+        _resetTransform = GameObject.FindWithTag("Reset").gameObject.transform;
     }
 
     void Update()
@@ -27,16 +37,19 @@ public class PickAx : MonoBehaviour
                 isAiming = true;
                 Debug.Log("Aim");
             }
-            else
-            {
-                PickAxComeBack();
-            }
             Debug.Log(_isPickAxInHand);
         }
         else
         {
             isAiming = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !_isPickAxInHand)
+        {
+            _pickAxRb.velocity = new Vector3(0,0,0);
+            StartCoroutine("PickAxComeBack");
+        }
+
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             if (_isPickAxInHand)
@@ -75,8 +88,16 @@ public class PickAx : MonoBehaviour
         _pickAxRb.AddRelativeTorque(Vector3.right * axeRotationSpeed, ForceMode.Impulse);
     }
 
-    private void PickAxComeBack()
+    IEnumerator PickAxComeBack()
     {
+        while (Vector3.Distance(_resetTransform.position, _pickAxRb.gameObject.transform.position) > grabStep)
+        {
+            _pickAxRb.gameObject.transform.position = Vector3.Lerp(_pickAxRb.gameObject.transform.position, _resetTransform.position, lerpSpeed);
+            _pickAxRb.gameObject.transform.rotation = Quaternion.Lerp(_pickAxRb.gameObject.transform.rotation, _resetTransform.rotation, lerpSpeed);
+            yield return null;
+        }
+        Transform parentHand = GameObject.Find("Main Camera").transform;
+        _pickAxRb.gameObject.transform.parent = parentHand;
         _isPickAxInHand = true;
     }
 
