@@ -17,8 +17,10 @@ public class PickAx_Effect : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.tag != "Player")
         {
+            
             _pickAxRb.isKinematic = true;
         }
     }
