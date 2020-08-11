@@ -108,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (_camera.fieldOfView < initialFOV)
             {
-                fovCoefficientToOriginal = 4.0f;
                 _camera.fieldOfView += _fovValue * fovCoefficientToOriginal;
             }
         }

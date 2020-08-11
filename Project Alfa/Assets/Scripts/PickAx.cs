@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public class PickAx : MonoBehaviour
 {
+    #region Variables
     [Header ("Pick Ax Throw")]
     [SerializeField] private float throwPower;
     [SerializeField] private float axeRotationSpeed;
@@ -12,11 +13,15 @@ public class PickAx : MonoBehaviour
     private bool _isPickAxInHand;
 
     [Header("Pick Ax Return")]
-    [Tooltip ("Set the distance at which the PickAx is considered back in the hand")]
-    [SerializeField] private float grabStep = 0.05f;
-    [Tooltip ("lower value = slower lerp")]
-    [SerializeField] private float lerpSpeed;
+    //[Tooltip ("Set the distance at which the PickAx is considered back in the hand")]
+    //[SerializeField] private float grabStep = 0.05f;
+    //[Tooltip ("lower value = slower lerp")]
+    //[SerializeField] private float lerpSpeed;
+    [Tooltip ("Define the evolution of the velocity of the pick ax during the return")]
+    [SerializeField] private AnimationCurve returnEvolution;
+    [SerializeField] private float returnDuration;
     private Transform _resetTransform;
+    #endregion
     void Start()
     {
         _pickAxRb = GameObject.FindGameObjectWithTag("PickAx").gameObject.GetComponent<Rigidbody>();
@@ -47,7 +52,7 @@ public class PickAx : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse1) && !_isPickAxInHand)
         {
             _pickAxRb.velocity = new Vector3(0,0,0);
-            StartCoroutine("PickAxComeBack");
+            StartCoroutine(PickAxComeBack(returnDuration));
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -69,6 +74,13 @@ public class PickAx : MonoBehaviour
             }
             Debug.Log(_isPickAxInHand);
         }
+
+        if (_isPickAxInHand)
+        {
+            _pickAxRb.position = _resetTransform.position;
+            _pickAxRb.rotation = _resetTransform.rotation;
+        }
+
     }
 
     private void PickAxHit()
@@ -79,7 +91,6 @@ public class PickAx : MonoBehaviour
 
     private void PickAxThrow()
     {
-        Debug.Log("Throw");
         _isPickAxInHand = false;
         _pickAxRb.transform.parent = null;
         _pickAxRb.isKinematic = false;
@@ -88,12 +99,20 @@ public class PickAx : MonoBehaviour
         _pickAxRb.AddRelativeTorque(Vector3.right * axeRotationSpeed, ForceMode.Impulse);
     }
 
-    IEnumerator PickAxComeBack()
+    IEnumerator PickAxComeBack(float duration)
     {
-        while (Vector3.Distance(_resetTransform.position, _pickAxRb.gameObject.transform.position) > grabStep)
+        float _elapsedTime = 0;
+
+        while (_elapsedTime < duration)
         {
-            _pickAxRb.gameObject.transform.position = Vector3.Lerp(_pickAxRb.gameObject.transform.position, _resetTransform.position, lerpSpeed);
-            _pickAxRb.gameObject.transform.rotation = Quaternion.Lerp(_pickAxRb.gameObject.transform.rotation, _resetTransform.rotation, lerpSpeed);
+            float completionPercent = _elapsedTime / duration;
+            float curvePercent = returnEvolution.Evaluate(completionPercent);
+
+            _pickAxRb.position = Vector3.Lerp(_pickAxRb.gameObject.transform.position, _resetTransform.position, curvePercent);
+            _pickAxRb.rotation = Quaternion.Lerp(_pickAxRb.gameObject.transform.rotation, _resetTransform.rotation, curvePercent);
+            
+            _elapsedTime += Time.deltaTime;
+            
             yield return null;
         }
         Transform parentHand = GameObject.Find("Main Camera").transform;
